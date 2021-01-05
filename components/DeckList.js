@@ -3,14 +3,15 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { codGrey, dirtyGold, eggBlue, blueLagoon, doveGrey } from '../colours';
 import {handleRecieveDecks} from '../actions/decks'
 import {connect} from 'react-redux';
-import { Entypo } from '@expo/vector-icons'; 
+import { Entypo } from '@expo/vector-icons';
+import Deck from './Deck';
 
 const styles = StyleSheet.create({
     deck: {
         borderWidth: 2,
         borderColor: dirtyGold,
-        alignItems: 'center',
-        justifyContent: 'center',
+        // alignItems: 'center',
+        // justifyContent: 'center',
         minHeight: 100,
         minWidth: 200,
         borderRadius: 6,
@@ -41,6 +42,11 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         padding: 5,
         borderRadius: 3
+    },
+    container: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginTop: 100
     }
 })
 
@@ -52,30 +58,27 @@ class DeckList extends React.Component {
     render() {
         const { decks, navigation } = this.props;
         return (
-            <View>
+            <View style={styles.container}>
             <Text style={styles.pageTitle}>Your Decks:</Text>
             {Object.values(decks).map((deck) => {
                 return (
                     <View key={deck.title}>
-                        <TouchableOpacity onPress={() => navigation.navigate('DeckInfo', { title: deck.title })}>
-                            <View style={styles.deck}>
-                                <Text style={styles.deckTitle}>{deck.title}</Text>
-                                <Text style={styles.deckSubtitle}>Cards: {deck.cards.length}</Text>
-                            </View>
+                        {console.log('decklist', deck)}
+                        <TouchableOpacity onPress={() => navigation.navigate('DeckInfo', { deck: deck })}>
+                            <Deck title={deck.title}/>
                         </TouchableOpacity>
                     </View> 
                 )
             })}
-            <TouchableOpacity style={styles.addBtn}><Entypo name="plus" size={32} color={blueLagoon} /></TouchableOpacity>
+            <TouchableOpacity style={styles.addBtn}><Entypo name="plus" size={32} color={blueLagoon} onPress={() => navigation.navigate('CreateDeck')}/></TouchableOpacity>
             </View>
         )
     }
 }
 
 const mapStateToProps = (state) => {
-    const decks = state
     return {
-        decks
+        decks: state
     }
 }
 

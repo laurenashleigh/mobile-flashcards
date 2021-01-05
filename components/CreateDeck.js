@@ -2,11 +2,10 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, TextInput } from 'react-native';
 import { blueLagoon, eggBlue, codGrey, black, white } from '../colours';
 
-export default HomeScreen = (props) => {
+const CreateDeck = () => {
     const [value, onChangeText] = React.useState('')
     return (
-        <View>
-             <Text style={styles.pageTitle}>{props.name}</Text>
+        <View style={styles.container}>
              <Text style={styles.title}>Name of Deck: </Text>
              <View>
                 <TextInput style={styles.input} value={value} onChangeText={text => onChangeText(text)} placeholder='Enter name of deck'/>
@@ -22,11 +21,9 @@ export default HomeScreen = (props) => {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1, 
-        padding: 20, 
-        backgroundColor: white,
         justifyContent: 'center',
         alignItems: 'center',
+        marginTop: 100,
     },
     btn: {
         backgroundColor: eggBlue,
@@ -50,6 +47,8 @@ const styles = StyleSheet.create({
           padding: 10,
           marginBottom: 30,
           borderRadius: 2,
+          paddingLeft:100,
+          paddingRight: 100
       },
       title: {
           fontWeight: 'bold',
@@ -63,3 +62,5 @@ const styles = StyleSheet.create({
         marginBottom: 30
       }
 });
+
+export default CreateDeck;

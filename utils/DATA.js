@@ -30,4 +30,8 @@ export const decks = {
             }
         ]
     },
+    Blah: {
+        title: 'Blah',
+        Cards: []
+    }
 }

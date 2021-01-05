@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { codGrey, dirtyGold, eggBlue, blueLagoon, white } from '../colours';
 import {connect} from 'react-redux';
+import Deck from './Deck';
 
 const styles = StyleSheet.create({
     deck: {
@@ -71,18 +72,19 @@ const styles = StyleSheet.create({
 
 class DeckInfo extends React.Component {
     render() {
-        const { deck, navigation } = this.props
+        const { deck, navigation, title } = this.props
        return (
         <View>
-             <View style={styles.deck}>
-                <Text style={styles.deckTitle}>{title}</Text>
-                <Text style={styles.deckSubtitle}>Cards: {deck.cards.length}</Text>
-            </View>
+             <Deck title={title}/>
+             {console.log('nav', navigation)}
+             {console.log('params', navigation.state.params.deck.title)}
+             {console.log('title', title)}
+             {console.log('deck', deck)}
             <View style={styles.inlineBtns}>
-                <TouchableOpacity style={styles.btn1} onPress={() => navigation.navigate('AddCard', {title: deck.title})}>
+                <TouchableOpacity style={styles.btn1} onPress={() => navigation.navigate('AddCard', {title: {title}})}>
                     <Text style={styles.btnText1}>Add Card</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.btn2}>
+                <TouchableOpacity style={styles.btn2} onPress={() => navigation.navigate('Quiz')}>
                     <Text style={styles.btnText2}>Start Quiz</Text>
                 </TouchableOpacity>
             </View>
@@ -93,11 +95,12 @@ class DeckInfo extends React.Component {
     
 }
 
-function mapStateToProps(state, {route}) {
-    const title = route.params.title
-    const deck = state[title]
+function mapStateToProps(state, {navigation}) {
+    const title = navigation.state.params.deck.title
+    const deck = navigation.state.params.deck
     return {
         deck,
+        title
     }
 }
 

@@ -1,7 +1,6 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-
-import HomeScreen from '../components/HomeScreen';
+import { white } from '../colours'
 import DeckList from '../components/DeckList'
 
 export default class ScreenOne extends React.Component {
@@ -19,5 +18,6 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
+        backgroundColor: white, 
     }
 })
