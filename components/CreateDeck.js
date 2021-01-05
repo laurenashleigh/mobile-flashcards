@@ -1,22 +1,46 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, TextInput } from 'react-native';
+import { connect } from 'react-redux'
 import { blueLagoon, eggBlue, codGrey, black, white } from '../colours';
+import {addDeck} from '../actions/decks'
+import {saveDeck} from '../utils/api'
 
-const CreateDeck = () => {
-    const [value, onChangeText] = React.useState('')
+class CreateDeck extends React.Component {
+    state = {
+        title: ''
+    }
+
+    handleTextInput = (value) => {
+        this.setState({
+            title: value
+        })
+    }
+    handleSubmit = () => {
+        const { title } = this.state
+        const { addDeck, navigation } = this.props
+        addDeck(title)
+        saveDeck(title)
+        this.setState({
+            title: ''
+        })
+        navigation.goBack()
+
+    }
+
+    render() {
     return (
         <View style={styles.container}>
              <Text style={styles.title}>Name of Deck: </Text>
              <View>
-                <TextInput style={styles.input} value={value} onChangeText={text => onChangeText(text)} placeholder='Enter name of deck'/>
+                <TextInput style={styles.input} value={this.state.title} onChangeText={this.handleTextInput} placeholder='Enter name of deck'/>
             </View>
              <View>
-                <TouchableOpacity style={styles.btn}>
+                <TouchableOpacity style={styles.btn} onPress={this.handleSubmit}>
                     <Text style={styles.btnText}>Create Deck</Text>
                 </TouchableOpacity>
             </View>
         </View>
-    )
+    )}
 }
 
 const styles = StyleSheet.create({
@@ -63,4 +87,4 @@ const styles = StyleSheet.create({
       }
 });
 
-export default CreateDeck;
+export default connect(null, {addDeck})(CreateDeck);

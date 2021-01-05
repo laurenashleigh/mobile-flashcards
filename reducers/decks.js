@@ -29,9 +29,9 @@ const decks = (state = {}, action) => {
       case ADD_CARD:
         return {
           ...state,
-          [action.did]: {
-            ...state[action.did],
-            cards: state[action.did].cards.concat(action.card)
+          [action.payload.did]: {
+            ...state[action.payload.did],
+            cards: state[action.payload.did].cards.concat(action.payload.card)
           }
         }
       default:

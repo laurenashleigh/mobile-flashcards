@@ -75,7 +75,7 @@ class DeckInfo extends React.Component {
         const { deck, navigation, title } = this.props
        return (
         <View>
-             <Deck title={title}/>
+             <Deck title={title} length={deck.cards.length}/>
              {console.log('nav', navigation)}
              {console.log('params', navigation.state.params.deck.title)}
              {console.log('title', title)}
@@ -84,7 +84,7 @@ class DeckInfo extends React.Component {
                 <TouchableOpacity style={styles.btn1} onPress={() => navigation.navigate('AddCard', {title: {title}})}>
                     <Text style={styles.btnText1}>Add Card</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.btn2} onPress={() => navigation.navigate('Quiz')}>
+                <TouchableOpacity style={styles.btn2} onPress={() => navigation.navigate('Quiz', {deck: deck})}>
                     <Text style={styles.btnText2}>Start Quiz</Text>
                 </TouchableOpacity>
             </View>

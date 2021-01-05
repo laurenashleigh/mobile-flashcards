@@ -30,8 +30,9 @@ const Deck = (props) => {
     return (
         <View style={styles.deck}>
             {console.log('props', props.title)}
+            {console.log('length', props.length)}
             <Text style={styles.deckTitle}>{props.title}</Text>
-            <Text style={styles.deckSubtitle}>Cards: 2</Text>
+            <Text style={styles.deckSubtitle}>Cards: {props.length}</Text>
         </View>
     )
 }

@@ -29,8 +29,10 @@ export const removeDeck = (did) => {
 export const addCard = (did, card) => {
     return {
         type: ADD_CARD,
-        did,
-        card
+        payload: {
+            did,
+            card
+        }
     }
 }
 

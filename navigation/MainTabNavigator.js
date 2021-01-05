@@ -3,7 +3,7 @@ import {createStackNavigator} from 'react-navigation-stack';
 import DeckList from '../components/DeckList';
 import AddCard from '../components/AddCard';
 import DeckInfo from '../components/DeckInfo';
-import {Quiz} from '../components/Quiz';
+import Quiz from '../components/Quiz';
 import {doveGrey, dirtyGold} from '../colours';
 import CreateDeck from '../components/CreateDeck';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
@@ -77,7 +77,10 @@ const MainNavigator = createStackNavigator(
             }
         },
         Quiz: {
-            screen: Quiz
+            screen: Quiz,
+            navigationOptions: {
+                title: 'Quiz'
+            }
         },
         CreateDeck: {
             screen: CreateDeck,

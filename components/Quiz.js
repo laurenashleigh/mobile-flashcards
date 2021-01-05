@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { codGrey, dirtyGold, blueLagoon, white, doveGrey } from '../colours';
 import { Entypo } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons'; 
+import {connect} from 'react-redux'
 
 const styles = StyleSheet.create({
     deck: {
@@ -113,8 +114,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
     }
 })
-
-export class Quiz extends React.Component {
+class Quiz extends React.Component {
     state = {
         hasClicked: false,
         cardNumber: 0,
@@ -146,28 +146,13 @@ export class Quiz extends React.Component {
         //navigate to next card
     }
 
-    WorldCapitals = {
-        title: 'World Capitals',
-        cards: [
-            {
-                question: 'Switzerland',
-                answer: 'Bern'
-            },
-            {
-                question: 'Nigeria',
-                answer: 'Abuja'
-            },
-            {
-                question: 'Iran',
-                answer: 'Tehran'
-            }
-        ]
-    }
     render() {
+        const { deck, navigation } = this.props
         return (
             <View>
+                {console.log('QuizNav: ', navigation)}
                 <TouchableOpacity style={styles.deck} onPress={this.handleClick}>
-                    <Text style={styles.deckTitle}>{this.WorldCapitals.title} 2/{this.WorldCapitals.cards.length}</Text>
+                    <Text style={styles.deckTitle}>{deck.title} 2/2</Text>
                     <Text style={styles.cardTitle}>{!this.state.hasClicked ? 'Question' : 'Answer'}</Text>
                     {!this.state.hasClicked ? <Text style={styles.quizQuestion}>Iran</Text> : <Text style={styles.quizAnswer}>Tehran</Text>}
                     {this.state.hasClicked ?
@@ -190,3 +175,13 @@ export class Quiz extends React.Component {
     }
    
 }
+
+
+function mapStateToProps(state, {navigation}) {
+    const deck = navigation.state.params.deck
+    return {
+        deck,
+    }
+}
+
+export default connect(mapStateToProps)(Quiz)
