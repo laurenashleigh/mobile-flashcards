@@ -6,7 +6,7 @@ import Deck from './Deck';
 
 const styles = StyleSheet.create({
     deck: {
-        borderWidth: 1,
+        borderWidth: 2,
         borderColor: dirtyGold,
         alignItems: 'center',
         justifyContent: 'center',
@@ -32,23 +32,25 @@ const styles = StyleSheet.create({
     },
     btn1: {
         backgroundColor: white,
-        borderWidth: 1,
+        borderWidth: 2,
         borderColor: dirtyGold,
         borderRadius: 3,
         marginBottom: 20,
         width: 100,
         alignItems: 'center',
         justifyContent: 'center',
+        marginRight: 20
     },
     btn2: {
         backgroundColor: dirtyGold,
-        borderWidth: 1,
-        borderColor: blueLagoon,
+        borderWidth: 2,
+        borderColor: eggBlue,
         borderRadius: 3,
         marginBottom: 20,
         width: 100,
         alignItems: 'center',
         justifyContent: 'center',
+        marginLeft: 20
     },
     btnText1: {
         color: dirtyGold,
@@ -67,14 +69,21 @@ const styles = StyleSheet.create({
     inlineBtns: {
         flexDirection: 'row',
         justifyContent: 'space-between',
+    },
+    container: {
+        alignItems: 'center',
+        justifyContent: 'center'
     }
 })
 
 class DeckInfo extends React.Component {
+    handleRemove = () => {
+        const { navigation, removeDeck } = this.props
+    }
     render() {
         const { deck, navigation, title } = this.props
        return (
-        <View>
+        <View style={styles.container}>
              <Deck title={title} length={deck.cards.length}/>
              {console.log('nav', navigation)}
              {console.log('params', navigation.state.params.deck.title)}

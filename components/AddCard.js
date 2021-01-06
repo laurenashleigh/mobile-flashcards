@@ -26,21 +26,23 @@ class AddCard extends React.Component {
             question: this.state.question,
             answer: this.state.answer
         }
+
         addCard(title, card)
-        addCardToDeck(title, card)
+        addCardToDeck(title.title, card)
         this.setState({
             question: '',
             answer: '',
         })
-        // navigation.goBack()
+        navigation.goBack()
     }
 
 
     render() {
-        const { navigation } = this.props
+        const { navigation, title } = this.props
     return (
         <View style={styles.container}>
             {console.log('navigation: ', navigation)}
+            {console.log('title: ', title.title)}
              <Text style={styles.title}>Create a card: </Text>
              <View>
                 <TextInput style={styles.input} value={this.state.question} onChangeText={this.handleAddQuestion} placeholder='Question'/>

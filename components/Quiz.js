@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
         borderRadius: 2,
         marginBottom: 50,
         marginTop: 30,
-        padding: 20,
+        padding: 50,
         backgroundColor: doveGrey,
     },
     cardTitle: {
@@ -84,7 +84,6 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         fontSize: 22,
         color: blueLagoon,
-        position: 'absolute', 
         flexDirection: 'row',
         bottom: 0,
         },
@@ -112,6 +111,15 @@ const styles = StyleSheet.create({
     inlineBtns: {
         flexDirection: 'row',
         justifyContent: 'space-between',
+    },
+    container: {
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    quizComplete: {
+        justifyContent: 'center',
+        alignSelf: 'center',
+        alignItems: 'center'
     }
 })
 class Quiz extends React.Component {
@@ -138,27 +146,46 @@ class Quiz extends React.Component {
 
     handleCorrectClick = () => {
         this.setState(prevState => ({
-            score: prevState.score +1,
+            score: prevState.score + 1,
+            cardNumber: prevState.cardNumber +1,
+            hasClicked: !prevState.hasClicked
         }))
     }
 
     handleIncorrectClick = () => {
-        //navigate to next card
+        this.setState(prevState => ({
+            cardNumber: prevState.cardNumber + 1,
+            hasClicked: !prevState.hasClicked
+        }))
     }
 
     render() {
-        const { deck, navigation } = this.props
-        return (
-            <View>
-                {console.log('QuizNav: ', navigation)}
+        const { deck, navigation, title } = this.props
+        const cards = deck.cards
+        const length = cards.length
+        const { cardNumber, score, hasClicked} = this.state
+
+        if (length === 0) {
+            return (
+                <View style={styles.container}>
+                    <Text style={styles.quizQuestion}>There are no cards in the deck</Text>
+                    <TouchableOpacity style={styles.btn1} onPress={() => navigation.navigate('AddCard', {title: {title}})}>
+                        <Text style={styles.btnText1}>Add Card</Text>
+                    </TouchableOpacity>
+                </View>
+            )
+        }
+        if (cardNumber !== length) {
+            return (
+               <View style={styles.container} key={cardNumber}>
                 <TouchableOpacity style={styles.deck} onPress={this.handleClick}>
-                    <Text style={styles.deckTitle}>{deck.title} 2/2</Text>
-                    <Text style={styles.cardTitle}>{!this.state.hasClicked ? 'Question' : 'Answer'}</Text>
-                    {!this.state.hasClicked ? <Text style={styles.quizQuestion}>Iran</Text> : <Text style={styles.quizAnswer}>Tehran</Text>}
-                    {this.state.hasClicked ?
+                    <Text style={styles.deckTitle}>{deck.title} {cardNumber+1}/{length}</Text>
+                    <Text style={styles.cardTitle}>{!hasClicked ? 'Question' : 'Answer'}</Text>
+                    {!hasClicked ? <Text style={styles.quizQuestion}>{cards[cardNumber].question}</Text> : <Text style={styles.quizAnswer}>{cards[cardNumber].answer}</Text>}
+                    {hasClicked ?
                     (<View style={styles.inlineBtns}>
                         <TouchableOpacity style={styles.btn1}>
-                            <Entypo name="cross" size={28} color={codGrey} />
+                            <Entypo name="cross" size={28} color={codGrey} onPress={this.handleIncorrectClick}/>
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.btn2} onPress={this.handleCorrectClick}>
                         <FontAwesome name="check" size={26} color={codGrey} />
@@ -168,9 +195,20 @@ class Quiz extends React.Component {
                     }
                 </TouchableOpacity>
                 
-                <Text style={styles.btn3Text}>Score: {this.state.score}</Text>
+                <Text style={styles.btn3Text}>Score: {score}</Text>
                 <TouchableOpacity style={styles.btn3} onPress={this.handleRestart}><Text style={styles.btn3Text}>Start Again</Text></TouchableOpacity>
-             </View>
+             </View> 
+            )
+            
+        }
+        return (
+            <View style={styles.container}>
+                <View style={styles.quizComplete}>
+                    <Text style={styles.quizQuestion}>You completed the quiz!</Text>
+                    <Text style={styles.cardTitle}>You answered {score}/{length} questions correctly!</Text>
+                    <TouchableOpacity style={styles.btn3} onPress={this.handleRestart}><Text style={styles.btn3Text}>Start Again</Text></TouchableOpacity>
+                </View>
+            </View>
     )
     }
    
@@ -179,8 +217,10 @@ class Quiz extends React.Component {
 
 function mapStateToProps(state, {navigation}) {
     const deck = navigation.state.params.deck
+    const title = navigation.state.params.deck.title
     return {
         deck,
+        title
     }
 }
 

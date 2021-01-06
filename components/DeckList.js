@@ -56,14 +56,15 @@ class DeckList extends React.Component {
     }
     
     render() {
-        const { decks, navigation } = this.props;
+        const { decks, navigation, state } = this.props;
         return (
             <View style={styles.container}>
             <Text style={styles.pageTitle}>Your Decks:</Text>
             {Object.values(decks).map((deck) => {
                 return (
                     <View key={deck.title}>
-                        {console.log('decklist', deck)}
+                        {console.log('decklist', deck.cards.length)}
+                        {console.log('state: ', state)}
                         <TouchableOpacity onPress={() => navigation.navigate('DeckInfo', { deck: deck })}>
                             <Deck title={deck.title} length={deck.cards.length}/>
                         </TouchableOpacity>
@@ -78,7 +79,8 @@ class DeckList extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        decks: state
+        decks: state,
+        state
     }
 }
 

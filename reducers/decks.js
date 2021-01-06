@@ -27,11 +27,14 @@ const decks = (state = {}, action) => {
           ...state.filter(deck => deck.id !== did)
         };
       case ADD_CARD:
+        console.log('ACTION.P.D', action.payload.did)
+        const transformedDid = action.payload.did.split(' ').join('')
+        console.log(transformedDid)
         return {
           ...state,
-          [action.payload.did]: {
-            ...state[action.payload.did],
-            cards: state[action.payload.did].cards.concat(action.payload.card)
+          [transformedDid]: {
+            ...state[transformedDid],
+            cards: state[transformedDid].cards.concat(action.payload.card)
           }
         }
       default:

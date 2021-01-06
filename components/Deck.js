@@ -12,7 +12,7 @@ const styles = {
         minHeight: 100,
         minWidth: 150,
         borderRadius: 6,
-        marginBottom: 50,
+        marginBottom: 10,
         padding: 20,
     },
     deckTitle: {
