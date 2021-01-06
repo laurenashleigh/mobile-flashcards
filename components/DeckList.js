@@ -66,7 +66,7 @@ class DeckList extends React.Component {
                         {console.log('decklist', deck.cards.length)}
                         {console.log('state: ', state)}
                         <TouchableOpacity onPress={() => navigation.navigate('DeckInfo', { deck: deck })}>
-                            <Deck title={deck.title} length={deck.cards.length}/>
+                            <Deck title={deck.title} length={deck.cards.length} navigation={navigation}/>
                         </TouchableOpacity>
                     </View> 
                 )

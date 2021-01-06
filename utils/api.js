@@ -19,8 +19,9 @@ export const getDeck = (id) => {
 }
 
 export const saveDeck = (title) => {
+    const deckName = title.split(' ').join('')
     return AsyncStorage.mergeItem(DECKS_STORAGE_KEY, JSON.stringify({
-        [title]: {
+        [deckName]: {
             title,
             cards: []
         }
@@ -28,7 +29,6 @@ export const saveDeck = (title) => {
 }
 
 export async function addCardToDeck(title, card) {
-    // console.log('asyncStorage',AsyncStorage.getItem(DECKS_STORAGE_KEY))
     const results = await AsyncStorage.getItem(DECKS_STORAGE_KEY)
     const resultsObj = JSON.parse(results)
     const transformedTitle = title.split(" ").join("")
@@ -44,6 +44,13 @@ export async function addCardToDeck(title, card) {
     }))
 }
 
-// export const deleteDeck(did) {
-
-// }
+export const deleteDeck = (deckName) => {
+    return AsyncStorage.getItem(DECKS_STORAGE_KEY)
+    .then((results) => {
+        const decks = JSON.parse(results)
+        const transformedDeckName = deckName.split(' ').join('')
+        decks[transformedDeckName] = undefined
+        delete decks[transformedDeckName]
+        AsyncStorage.setItem(DECKS_STORAGE_KEY, JSON.stringify(decks))
+    })
+}

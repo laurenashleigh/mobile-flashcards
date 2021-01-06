@@ -3,18 +3,13 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { codGrey, dirtyGold, eggBlue, blueLagoon, white } from '../colours';
 import {connect} from 'react-redux';
 import Deck from './Deck';
+import { removeDeck } from '../actions/decks'
+import { deleteDeck } from '../utils/api'
 
 const styles = StyleSheet.create({
     deck: {
-        borderWidth: 2,
-        borderColor: dirtyGold,
-        alignItems: 'center',
-        justifyContent: 'center',
-        minHeight: 100,
-        minWidth: 150,
-        borderRadius: 6,
-        marginBottom: 50,
-        padding: 20,
+        marginTop: 100,
+        marginBottom: 20
     },
     deckTitle: {
         fontSize: 30,
@@ -39,7 +34,6 @@ const styles = StyleSheet.create({
         width: 100,
         alignItems: 'center',
         justifyContent: 'center',
-        marginRight: 20
     },
     btn2: {
         backgroundColor: dirtyGold,
@@ -50,7 +44,6 @@ const styles = StyleSheet.create({
         width: 100,
         alignItems: 'center',
         justifyContent: 'center',
-        marginLeft: 20
     },
     btnText1: {
         color: dirtyGold,
@@ -69,6 +62,8 @@ const styles = StyleSheet.create({
     inlineBtns: {
         flexDirection: 'row',
         justifyContent: 'space-between',
+        width: 300,
+        alignSelf: 'center',
     },
     container: {
         alignItems: 'center',
@@ -77,14 +72,20 @@ const styles = StyleSheet.create({
 })
 
 class DeckInfo extends React.Component {
-    handleRemove = () => {
-        const { navigation, removeDeck } = this.props
-    }
+    // handleRemove = () => {
+    //     const { navigation, title, removeDeck } = this.props
+    //     console.log('handleRemove title', title)
+    //     removeDeck(title)
+    //     deleteDeck(title)
+    //     navigation.goBack()
+    // }
     render() {
         const { deck, navigation, title } = this.props
        return (
         <View style={styles.container}>
-             <Deck title={title} length={deck.cards.length}/>
+            <View style={styles.deck}>
+                <Deck title={title} length={deck.cards.length} navigation={navigation}/>
+            </View>
              {console.log('nav', navigation)}
              {console.log('params', navigation.state.params.deck.title)}
              {console.log('title', title)}
@@ -113,4 +114,4 @@ function mapStateToProps(state, {navigation}) {
     }
 }
 
-export default connect(mapStateToProps)(DeckInfo);
+export default connect(mapStateToProps, { removeDeck })(DeckInfo);

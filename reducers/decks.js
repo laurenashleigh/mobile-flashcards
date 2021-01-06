@@ -14,17 +14,22 @@ const decks = (state = {}, action) => {
           ...action.decks
         };
       case ADD_DECK:
+        const deckName = action.title.split(' ').join('')
+        console.log('addDeck', deckName, action.title)
         return {
           ...state,
-          [action.title]: {
+          [deckName]: {
             title: action.title,
             cards: []
           }
         };
       case REMOVE_DECK:
-        const { did } = action;
+        console.log('deckName', action.did)
+        const decks = Object.keys(state)
+        const { did } = action
         return {
-          ...state.filter(deck => deck.id !== did)
+          ...state,
+          [did]: decks.filter(deck => deck.did !== did)
         };
       case ADD_CARD:
         console.log('ACTION.P.D', action.payload.did)

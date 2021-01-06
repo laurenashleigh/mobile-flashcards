@@ -27,7 +27,6 @@ export const removeDeck = (did) => {
 }
 
 export const addCard = (did, card) => {
-    console.log("ACTION did ",did)
     return {
         type: ADD_CARD,
         payload: {
