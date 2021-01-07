@@ -39,7 +39,8 @@ const styles = StyleSheet.create({
         color: blueLagoon,
         paddingBottom: 40,
         padding: 50,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        alignSelf: 'center'
     },
     quizAnswer: {
         fontSize: 34,
@@ -125,9 +126,9 @@ const styles = StyleSheet.create({
     }
 })
 class Quiz extends React.Component {
-    // componentDidMount() {
-    //     clearLocalNotification().then(setLocalNotification)
-    // }
+    componentDidMount() {
+        clearLocalNotification()
+    }
     state = {
         cardNumber: 0,
         score: 0,
@@ -202,32 +203,6 @@ class Quiz extends React.Component {
             )
             
         }
-        // if (cardNumber !== length) {
-        //     return (
-        //        <View style={styles.container} key={cardNumber}>
-        //         <TouchableOpacity style={styles.deck} onPress={this.handleClick}>
-        //             <Text style={styles.deckTitle}>{deck.title} {cardNumber+1}/{length}</Text>
-        //             <Text style={styles.cardTitle}>{!hasClicked ? 'Question' : 'Answer'}</Text>
-        //             {!hasClicked ? <Text style={styles.quizQuestion}>{cards[cardNumber].question}</Text> : <Text style={styles.quizAnswer}>{cards[cardNumber].answer}</Text>}
-        //             {hasClicked ?
-        //             (<View style={styles.inlineBtns}>
-        //                 <TouchableOpacity style={styles.btn1}>
-        //                     <Entypo name="cross" size={28} color={codGrey} onPress={this.handleIncorrectClick}/>
-        //                 </TouchableOpacity>
-        //                 <TouchableOpacity style={styles.btn2} onPress={this.handleCorrectClick}>
-        //                 <FontAwesome name="check" size={26} color={codGrey} />
-        //                 </TouchableOpacity>
-        //             </View>) :
-        //             <Text>(Tap card for answer)</Text>
-        //             }
-        //         </TouchableOpacity>
-                
-        //         <Text style={styles.btn3Text}>Score: {score}</Text>
-        //         <TouchableOpacity style={styles.btn3} onPress={this.handleRestart}><Text style={styles.btn3Text}>Start Again</Text></TouchableOpacity>
-        //      </View> 
-        //     )
-            
-        // }
         return (
             <View style={styles.container}>
                 <View style={styles.quizComplete}>

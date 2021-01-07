@@ -19,7 +19,7 @@ class CreateDeck extends React.Component {
         const { title } = this.state
         const { addDeck, navigation } = this.props
         if (title === '') {
-            alert('Stop that bish')
+            alert('Please enter a title for your deck')
         } else {
             addDeck(title)
             saveDeck(title)

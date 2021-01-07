@@ -25,7 +25,7 @@ class AddCard extends React.Component {
             answer: this.state.answer
         }
         if (this.state.question === '' || this.state.answer === '') {
-            alert('Please don\'t be a dickhead')
+            alert('Please complete both fields')
         } else {
             addCard(title, card)
             addCardToDeck(title.title, card)
