@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import { codGrey, dirtyGold, eggBlue, blueLagoon, doveGrey } from '../colours';
+import { codGrey, dirtyGold, blueLagoon, doveGrey } from '../colours';
 import {handleRecieveDecks} from '../actions/decks'
 import {connect} from 'react-redux';
 import { Entypo } from '@expo/vector-icons';

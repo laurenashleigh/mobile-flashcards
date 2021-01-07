@@ -9,7 +9,7 @@ import { Entypo } from '@expo/vector-icons';
 
 const styles = {
     deck: {
-        borderWidth: 1,
+        borderWidth: 2,
         borderColor: dirtyGold,
         alignItems: 'center',
         justifyContent: 'center',
@@ -39,7 +39,7 @@ const Deck = (props) => {
         const deckName = title.split(' ').join('')
         console.log('handleRemove title', deckName)
         
-        removeDeck(deckName)
+        props.removeDeck(deckName)
         deleteDeck(deckName)
         props.navigation.navigate('DeckList')
     }
@@ -53,7 +53,7 @@ const Deck = (props) => {
         </View>
     )
 }
-export default Deck;
+export default connect(null, {removeDeck})(Deck)
 
 // class Deck extends React.Component {
 

@@ -3,7 +3,9 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { codGrey, dirtyGold, blueLagoon, white, doveGrey } from '../colours';
 import { Entypo } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons'; 
-import {connect} from 'react-redux'
+import {connect} from 'react-redux';
+import { setLocalNotification, clearLocalNotification } from '../utils/notifications';
+import CardFlip from 'react-native-card-flip'
 
 const styles = StyleSheet.create({
     deck: {
@@ -11,7 +13,7 @@ const styles = StyleSheet.create({
         borderColor: dirtyGold,
         alignItems: 'center',
         justifyContent: 'center',
-        height: '60%',
+        alignSelf: 'center',
         width: 300,
         borderRadius: 2,
         marginBottom: 50,
@@ -86,6 +88,7 @@ const styles = StyleSheet.create({
         color: blueLagoon,
         flexDirection: 'row',
         bottom: 0,
+        margin: 20
         },
     btnText1: {
         color: dirtyGold,
@@ -114,7 +117,8 @@ const styles = StyleSheet.create({
     },
     container: {
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        alignSelf: 'center'
     },
     quizComplete: {
         justifyContent: 'center',
@@ -123,40 +127,37 @@ const styles = StyleSheet.create({
     }
 })
 class Quiz extends React.Component {
+    // componentDidMount() {
+    //     clearLocalNotification().then(setLocalNotification)
+    // }
     state = {
-        hasClicked: false,
         cardNumber: 0,
         score: 0,
     }
 
     handleRestart = () => {
         this.setState({
-            hasClicked: false,
             cardNumber: 0,
             score: 0,
         })
-        //navigate to home
-    }
-
-    handleClick = () => {
-        this.setState(prevState => ({
-            hasClicked: !prevState.hasClicked,
-        }))
     }
 
     handleCorrectClick = () => {
         this.setState(prevState => ({
             score: prevState.score + 1,
             cardNumber: prevState.cardNumber +1,
-            hasClicked: !prevState.hasClicked
         }))
     }
 
     handleIncorrectClick = () => {
         this.setState(prevState => ({
             cardNumber: prevState.cardNumber + 1,
-            hasClicked: !prevState.hasClicked
         }))
+    }
+
+    handleGoHome = () => {
+        const { navigation } = this.props
+        navigation.navigate('DeckList')
     }
 
     render() {
@@ -178,35 +179,64 @@ class Quiz extends React.Component {
         if (cardNumber !== length) {
             return (
                <View style={styles.container} key={cardNumber}>
-                <TouchableOpacity style={styles.deck} onPress={this.handleClick}>
-                    <Text style={styles.deckTitle}>{deck.title} {cardNumber+1}/{length}</Text>
-                    <Text style={styles.cardTitle}>{!hasClicked ? 'Question' : 'Answer'}</Text>
-                    {!hasClicked ? <Text style={styles.quizQuestion}>{cards[cardNumber].question}</Text> : <Text style={styles.quizAnswer}>{cards[cardNumber].answer}</Text>}
-                    {hasClicked ?
-                    (<View style={styles.inlineBtns}>
-                        <TouchableOpacity style={styles.btn1}>
-                            <Entypo name="cross" size={28} color={codGrey} onPress={this.handleIncorrectClick}/>
+                   <CardFlip style={styles.container} ref={(card) => this.card = card}>
+                        <TouchableOpacity style={styles.deck} onPress={() => this.card.flip()} >
+                            <Text style={styles.deckTitle}>{deck.title} {cardNumber+1}/{length}</Text>
+                            <Text style={styles.cardTitle}>Question</Text>
+                            <Text style={styles.quizQuestion}>{cards[cardNumber].question}</Text>
+                            <Text>(Tap card for answer)</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={styles.btn2} onPress={this.handleCorrectClick}>
-                        <FontAwesome name="check" size={26} color={codGrey} />
+                        <TouchableOpacity style={styles.deck} onPress={() => this.card.flip()} >
+                            <Text style={styles.deckTitle}>{deck.title} {cardNumber+1}/{length}</Text>
+                            <Text style={styles.cardTitle}>Answer</Text>
+                            <Text style={styles.quizQuestion}>{cards[cardNumber].answer}</Text>
+                            <View style={styles.inlineBtns}>
+                                <TouchableOpacity style={styles.btn1}>
+                                    <Entypo name="cross" size={28} color={codGrey} onPress={this.handleIncorrectClick}/>
+                                </TouchableOpacity>
+                                <TouchableOpacity style={styles.btn2} onPress={this.handleCorrectClick}>
+                                <FontAwesome name="check" size={26} color={codGrey} />
+                                </TouchableOpacity>
+                            </View>
                         </TouchableOpacity>
-                    </View>) :
-                    <Text>(Tap card for answer)</Text>
-                    }
-                </TouchableOpacity>
-                
-                <Text style={styles.btn3Text}>Score: {score}</Text>
-                <TouchableOpacity style={styles.btn3} onPress={this.handleRestart}><Text style={styles.btn3Text}>Start Again</Text></TouchableOpacity>
-             </View> 
+                   </CardFlip>
+                </View>
             )
             
         }
+        // if (cardNumber !== length) {
+        //     return (
+        //        <View style={styles.container} key={cardNumber}>
+        //         <TouchableOpacity style={styles.deck} onPress={this.handleClick}>
+        //             <Text style={styles.deckTitle}>{deck.title} {cardNumber+1}/{length}</Text>
+        //             <Text style={styles.cardTitle}>{!hasClicked ? 'Question' : 'Answer'}</Text>
+        //             {!hasClicked ? <Text style={styles.quizQuestion}>{cards[cardNumber].question}</Text> : <Text style={styles.quizAnswer}>{cards[cardNumber].answer}</Text>}
+        //             {hasClicked ?
+        //             (<View style={styles.inlineBtns}>
+        //                 <TouchableOpacity style={styles.btn1}>
+        //                     <Entypo name="cross" size={28} color={codGrey} onPress={this.handleIncorrectClick}/>
+        //                 </TouchableOpacity>
+        //                 <TouchableOpacity style={styles.btn2} onPress={this.handleCorrectClick}>
+        //                 <FontAwesome name="check" size={26} color={codGrey} />
+        //                 </TouchableOpacity>
+        //             </View>) :
+        //             <Text>(Tap card for answer)</Text>
+        //             }
+        //         </TouchableOpacity>
+                
+        //         <Text style={styles.btn3Text}>Score: {score}</Text>
+        //         <TouchableOpacity style={styles.btn3} onPress={this.handleRestart}><Text style={styles.btn3Text}>Start Again</Text></TouchableOpacity>
+        //      </View> 
+        //     )
+            
+        // }
         return (
             <View style={styles.container}>
                 <View style={styles.quizComplete}>
                     <Text style={styles.quizQuestion}>You completed the quiz!</Text>
                     <Text style={styles.cardTitle}>You answered {score}/{length} questions correctly!</Text>
                     <TouchableOpacity style={styles.btn3} onPress={this.handleRestart}><Text style={styles.btn3Text}>Start Again</Text></TouchableOpacity>
+                    <TouchableOpacity style={styles.btn3} onPress={this.handleGoHome}><Text style={styles.btn3Text}>Go Home</Text></TouchableOpacity>
                 </View>
             </View>
     )

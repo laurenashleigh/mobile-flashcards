@@ -24,12 +24,10 @@ const decks = (state = {}, action) => {
           }
         };
       case REMOVE_DECK:
-        console.log('deckName', action.did)
-        const decks = Object.keys(state)
-        const { did } = action
+        let copy = {...state}
+        delete copy[action.did]
         return {
-          ...state,
-          [did]: decks.filter(deck => deck.did !== did)
+          ...copy,
         };
       case ADD_CARD:
         console.log('ACTION.P.D', action.payload.did)
