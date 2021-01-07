@@ -12,47 +12,45 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         borderColor: dirtyGold,
         alignItems: 'center',
-        justifyContent: 'center',
         alignSelf: 'center',
         width: 300,
+        height: 300,
         borderRadius: 2,
         marginBottom: 50,
         marginTop: 30,
         padding: 50,
+        paddingBottom: 100,
         backgroundColor: doveGrey,
     },
     cardTitle: {
         fontSize: 18,
         color: codGrey,
-        marginBottom: 10,
+        paddingBottom: 10,
     },
     deckTitle: {
         fontSize: 14,
         color: codGrey,
         alignItems: 'flex-start',
-        marginBottom: 20,
+        paddingBottom: 20,
         justifyContent: 'flex-start',
     },
     quizQuestion: {
         fontSize: 34,
         color: blueLagoon,
-        marginBottom: 40,
-        marginBottom: 40,
+        paddingBottom: 40,
         padding: 50,
         fontWeight: 'bold'
     },
     quizAnswer: {
         fontSize: 34,
         color: dirtyGold,
-        marginBottom: 40,
-        marginBottom: 40,
         padding: 50,
         fontWeight: 'bold'
     },
     pageTitle: {
         fontSize: 30,
         color: blueLagoon,
-        marginBottom: 30
+        paddingBottom: 30
     },
     btn1: {
         backgroundColor: white,
@@ -61,6 +59,7 @@ const styles = StyleSheet.create({
         borderRadius: 3,
         marginBottom: 20,
         width: 100,
+        height: 30,
         alignItems: 'center',
         justifyContent: 'center',
         marginRight: 5,
@@ -72,6 +71,7 @@ const styles = StyleSheet.create({
         borderRadius: 3,
         marginBottom: 20,
         marginLeft: 5,
+        height: 30,
         width: 100,
         alignItems: 'center',
         justifyContent: 'center',
@@ -117,8 +117,6 @@ const styles = StyleSheet.create({
     },
     container: {
         alignItems: 'center',
-        justifyContent: 'center',
-        alignSelf: 'center'
     },
     quizComplete: {
         justifyContent: 'center',
@@ -164,7 +162,7 @@ class Quiz extends React.Component {
         const { deck, navigation, title } = this.props
         const cards = deck.cards
         const length = cards.length
-        const { cardNumber, score, hasClicked} = this.state
+        const { cardNumber, score } = this.state
 
         if (length === 0) {
             return (
@@ -178,8 +176,8 @@ class Quiz extends React.Component {
         }
         if (cardNumber !== length) {
             return (
-               <View style={styles.container} key={cardNumber}>
-                   <CardFlip style={styles.container} ref={(card) => this.card = card}>
+               <View key={cardNumber}>
+                   <CardFlip ref={(card) => this.card = card}>
                         <TouchableOpacity style={styles.deck} onPress={() => this.card.flip()} >
                             <Text style={styles.deckTitle}>{deck.title} {cardNumber+1}/{length}</Text>
                             <Text style={styles.cardTitle}>Question</Text>

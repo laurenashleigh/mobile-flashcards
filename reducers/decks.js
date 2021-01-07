@@ -15,7 +15,6 @@ const decks = (state = {}, action) => {
         };
       case ADD_DECK:
         const deckName = action.title.split(' ').join('')
-        console.log('addDeck', deckName, action.title)
         return {
           ...state,
           [deckName]: {
@@ -30,7 +29,6 @@ const decks = (state = {}, action) => {
           ...copy,
         };
       case ADD_CARD:
-        console.log('ACTION.P.D', action.payload.did)
         const transformedDid = action.payload.did.split(' ').join('')
         console.log(transformedDid)
         return {

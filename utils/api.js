@@ -34,9 +34,6 @@ export async function addCardToDeck(title, card) {
     const transformedTitle = title.split(" ").join("")
 
     const deck = resultsObj[transformedTitle]
-    console.log('results ', typeof(resultsObj))
-    console.log('deck ', deck)
-    console.log('transformed title ', transformedTitle)
     return AsyncStorage.mergeItem(DECKS_STORAGE_KEY, JSON.stringify({
         [transformedTitle]: {
             cards: [...deck.cards].concat(card)

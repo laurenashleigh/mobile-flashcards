@@ -12,12 +12,10 @@ class AddCard extends React.Component {
     }
     handleAddQuestion = (question) => {
         this.setState({question})
-        console.log('question: ', question)
     }
 
     handleAddAnswer = (answer) => {
         this.setState({answer})
-        console.log('answer: ', answer)
     }
 
     handleSubmit = () => {
@@ -26,14 +24,19 @@ class AddCard extends React.Component {
             question: this.state.question,
             answer: this.state.answer
         }
-
-        addCard(title, card)
-        addCardToDeck(title.title, card)
-        this.setState({
-            question: '',
-            answer: '',
-        })
-        navigation.goBack()
+        if (this.state.question === '' || this.state.answer === '') {
+            alert('Please don\'t be a dickhead')
+        } else {
+            addCard(title, card)
+            addCardToDeck(title.title, card)
+            this.setState({
+                question: '',
+                answer: '',
+            })
+            navigation.navigate('DeckInfo', { deck: this.props.deck}) 
+        }
+        
+        
     }
 
 
@@ -104,9 +107,12 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state, { navigation }) => {
     const title = navigation.state.params.title
+    const deckName = title.title.split(' ').join('')
+    const deck = state[deckName]
     return {
         navigation,
-        title
+        title,
+        deck
     }
 }
 

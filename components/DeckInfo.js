@@ -72,24 +72,18 @@ const styles = StyleSheet.create({
 })
 
 class DeckInfo extends React.Component {
-    // handleRemove = () => {
-    //     const { navigation, title, removeDeck } = this.props
-    //     console.log('handleRemove title', title)
-    //     removeDeck(title)
-    //     deleteDeck(title)
-    //     navigation.goBack()
-    // }
     render() {
         const { deck, navigation, title } = this.props
+        if (deck === undefined) {
+            return(
+                <Text>Deck Deleted</Text>
+            )
+        }
        return (
         <View style={styles.container}>
             <View style={styles.deck}>
                 <Deck title={title} length={deck.cards.length} navigation={navigation}/>
             </View>
-             {console.log('nav', navigation)}
-             {console.log('params', navigation.state.params.deck.title)}
-             {console.log('title', title)}
-             {console.log('deck', deck)}
             <View style={styles.inlineBtns}>
                 <TouchableOpacity style={styles.btn1} onPress={() => navigation.navigate('AddCard', {title: {title}})}>
                     <Text style={styles.btnText1}>Add Card</Text>
@@ -107,7 +101,8 @@ class DeckInfo extends React.Component {
 
 function mapStateToProps(state, {navigation}) {
     const title = navigation.state.params.deck.title
-    const deck = navigation.state.params.deck
+    const deckName = title.split(' ').join('')
+    const deck = state[deckName]
     return {
         deck,
         title

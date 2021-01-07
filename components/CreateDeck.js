@@ -18,12 +18,17 @@ class CreateDeck extends React.Component {
     handleSubmit = () => {
         const { title } = this.state
         const { addDeck, navigation } = this.props
-        addDeck(title)
-        saveDeck(title)
-        this.setState({
-            title: ''
-        })
-        navigation.goBack()
+        if (title === '') {
+            alert('Stop that bish')
+        } else {
+            addDeck(title)
+            saveDeck(title)
+            this.setState({
+                title: ''
+            })
+            navigation.goBack()  
+        }
+        
 
     }
 
