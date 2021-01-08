@@ -30,7 +30,6 @@ const decks = (state = {}, action) => {
         };
       case ADD_CARD:
         const transformedDid = action.payload.did.split(' ').join('')
-        console.log(transformedDid)
         return {
           ...state,
           [transformedDid]: {

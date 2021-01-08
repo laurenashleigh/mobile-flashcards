@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
 import { codGrey, dirtyGold, blueLagoon, doveGrey } from '../colours';
 import {handleRecieveDecks} from '../actions/decks'
 import {connect} from 'react-redux';
@@ -58,21 +58,21 @@ class DeckList extends React.Component {
     render() {
         const { decks, navigation, state } = this.props;
         return (
-            <View style={styles.container}>
-            <Text style={styles.pageTitle}>Your Decks:</Text>
-            {Object.values(decks).map((deck) => {
-                return (
-                    <View key={deck.title}>
-                        {console.log('decklist', deck.cards.length)}
-                        {console.log('state: ', state)}
-                        <TouchableOpacity onPress={() => navigation.navigate('DeckInfo', { deck: deck })}>
-                            <Deck title={deck.title} length={deck.cards.length} navigation={navigation}/>
-                        </TouchableOpacity>
-                    </View> 
-                )
-            })}
-            <TouchableOpacity style={styles.addBtn}><Entypo name="plus" size={32} color={blueLagoon} onPress={() => navigation.navigate('CreateDeck')}/></TouchableOpacity>
-            </View>
+            <ScrollView>
+                <View style={styles.container}>
+                <Text style={styles.pageTitle}>Your Decks:</Text>
+                {Object.values(decks).map((deck) => {
+                    return (
+                        <View key={deck.title}>
+                            <TouchableOpacity onPress={() => navigation.navigate('DeckInfo', { deck: deck })}>
+                                <Deck title={deck.title} length={deck.cards.length} navigation={navigation}/>
+                            </TouchableOpacity>
+                        </View> 
+                    )
+                })}
+                <TouchableOpacity style={styles.addBtn}><Entypo name="plus" size={32} color={blueLagoon} onPress={() => navigation.navigate('CreateDeck')}/></TouchableOpacity>
+                </View>
+            </ScrollView>
         )
     }
 }
