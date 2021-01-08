@@ -142,7 +142,7 @@ class Quiz extends React.Component {
             score: prevState.score + 1,
             cardNumber: prevState.cardNumber +1,
         }))
-        clearLocalNotification().then(setLocalNotification)
+        // clearLocalNotification().then(setLocalNotification)
     }
 
     handleIncorrectClick = () => {
