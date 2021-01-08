@@ -37,7 +37,6 @@ const Deck = (props) => {
 
     const handleRemove = (title) => {
         const deckName = title.split(' ').join('')
-        console.log('handleRemove title', deckName)
         
         props.removeDeck(deckName)
         deleteDeck(deckName)

@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         alignSelf: 'center',
         width: 300,
-        height: 300,
+        height: 350,
         borderRadius: 2,
         marginBottom: 50,
         marginTop: 30,
@@ -28,25 +28,24 @@ const styles = StyleSheet.create({
         paddingBottom: 10,
     },
     deckTitle: {
-        fontSize: 14,
+        fontSize: 18,
         color: codGrey,
         alignItems: 'flex-start',
         paddingBottom: 20,
         justifyContent: 'flex-start',
     },
     quizQuestion: {
-        fontSize: 34,
+        fontSize: 24,
         color: blueLagoon,
         paddingBottom: 40,
-        padding: 50,
+        paddingTop: 40,
         fontWeight: 'bold',
-        alignSelf: 'center'
     },
     quizAnswer: {
-        fontSize: 34,
+        fontSize: 24,
         color: dirtyGold,
-        padding: 50,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        paddingTop: 40,
     },
     pageTitle: {
         fontSize: 30,
@@ -126,9 +125,6 @@ const styles = StyleSheet.create({
     }
 })
 class Quiz extends React.Component {
-    componentDidMount() {
-        clearLocalNotification()
-    }
     state = {
         cardNumber: 0,
         score: 0,
@@ -146,6 +142,7 @@ class Quiz extends React.Component {
             score: prevState.score + 1,
             cardNumber: prevState.cardNumber +1,
         }))
+        clearLocalNotification().then(setLocalNotification)
     }
 
     handleIncorrectClick = () => {

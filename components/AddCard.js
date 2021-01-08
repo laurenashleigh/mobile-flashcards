@@ -44,8 +44,6 @@ class AddCard extends React.Component {
         const { navigation, title } = this.props
     return (
         <View style={styles.container}>
-            {console.log('navigation: ', navigation)}
-            {console.log('title: ', title.title)}
              <Text style={styles.title}>Create a card: </Text>
              <View>
                 <TextInput style={styles.input} value={this.state.question} onChangeText={this.handleAddQuestion} placeholder='Question'/>
