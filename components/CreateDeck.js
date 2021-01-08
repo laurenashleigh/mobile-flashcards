@@ -1,32 +1,58 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, TextInput } from 'react-native';
+import { connect } from 'react-redux'
 import { blueLagoon, eggBlue, codGrey, black, white } from '../colours';
+import {addDeck} from '../actions/decks'
+import {saveDeck} from '../utils/api'
 
-export default HomeScreen = (props) => {
-    const [value, onChangeText] = React.useState('')
+class CreateDeck extends React.Component {
+    state = {
+        title: ''
+    }
+
+    handleTextInput = (value) => {
+        this.setState({
+            title: value
+        })
+    }
+    handleSubmit = () => {
+        const { title } = this.state
+        const { addDeck, navigation } = this.props
+        if (title === '') {
+            alert('Please enter a title for your deck')
+        } else {
+            addDeck(title)
+            saveDeck(title)
+            this.setState({
+                title: ''
+            })
+            navigation.goBack()  
+        }
+        
+
+    }
+
+    render() {
     return (
-        <View>
-             <Text style={styles.pageTitle}>{props.name}</Text>
+        <View style={styles.container}>
              <Text style={styles.title}>Name of Deck: </Text>
              <View>
-                <TextInput style={styles.input} value={value} onChangeText={text => onChangeText(text)} placeholder='Enter name of deck'/>
+                <TextInput style={styles.input} value={this.state.title} onChangeText={this.handleTextInput} placeholder='Enter name of deck'/>
             </View>
              <View>
-                <TouchableOpacity style={styles.btn}>
+                <TouchableOpacity style={styles.btn} onPress={this.handleSubmit}>
                     <Text style={styles.btnText}>Create Deck</Text>
                 </TouchableOpacity>
             </View>
         </View>
-    )
+    )}
 }
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1, 
-        padding: 20, 
-        backgroundColor: white,
         justifyContent: 'center',
         alignItems: 'center',
+        marginTop: 100,
     },
     btn: {
         backgroundColor: eggBlue,
@@ -50,6 +76,8 @@ const styles = StyleSheet.create({
           padding: 10,
           marginBottom: 30,
           borderRadius: 2,
+          paddingLeft:100,
+          paddingRight: 100
       },
       title: {
           fontWeight: 'bold',
@@ -63,3 +91,5 @@ const styles = StyleSheet.create({
         marginBottom: 30
       }
 });
+
+export default connect(null, {addDeck})(CreateDeck);

@@ -3,11 +3,11 @@ import { registerRootComponent } from 'expo';
 // import rootReducer from './reducers/index';
 // import { Provider } from 'react-redux';
 
-import App2 from './App2';
+import App from './App';
 
 // const connectedApp = createStore(rootReducer, middleware)
 
 // registerRootComponent calls AppRegistry.registerComponent('main', () => App);
 // It also ensures that whether you load the app in the Expo client or in a native build,
 // the environment is set up appropriately
-registerRootComponent(App2);
+registerRootComponent(App);

@@ -14,24 +14,28 @@ const decks = (state = {}, action) => {
           ...action.decks
         };
       case ADD_DECK:
+        const deckName = action.title.split(' ').join('')
         return {
           ...state,
-          [action.title]: {
+          [deckName]: {
             title: action.title,
             cards: []
           }
         };
       case REMOVE_DECK:
-        const { did } = action;
+        let copy = {...state}
+        delete copy[action.did]
         return {
-          ...state.filter(deck => deck.id !== did)
+          ...copy,
         };
       case ADD_CARD:
+        const transformedDid = action.payload.did.split(' ').join('')
+        console.log(transformedDid)
         return {
           ...state,
-          [action.did]: {
-            ...state[action.did],
-            cards: state[action.did].cards.concat(action.card)
+          [transformedDid]: {
+            ...state[transformedDid],
+            cards: state[transformedDid].cards.concat(action.payload.card)
           }
         }
       default:
