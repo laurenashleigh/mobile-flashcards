@@ -10,8 +10,6 @@ const styles = StyleSheet.create({
     deck: {
         borderWidth: 2,
         borderColor: dirtyGold,
-        // alignItems: 'center',
-        // justifyContent: 'center',
         minHeight: 100,
         minWidth: 200,
         borderRadius: 6,

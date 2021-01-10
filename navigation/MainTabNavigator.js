@@ -6,51 +6,7 @@ import DeckInfo from '../components/DeckInfo';
 import Quiz from '../components/Quiz';
 import {doveGrey, dirtyGold} from '../colours';
 import CreateDeck from '../components/CreateDeck';
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 
-// const Tabs = createMaterialTopTabNavigator();
-// const TabNavigator = () => (
-//     <Tabs.Navigator
-//         initialRouteName="DeckList"
-//     >
-//         <Tabs.Screen
-//             name="DeckList"
-//             component={DeckList}
-//             options={{
-//                 title: 'DeckList'
-//             }}
-//         />
-//         <Tabs.Screen
-//             name="AddDeck"
-//             component={AddDeck}
-//             options={{
-//                 title: 'AddDeck'
-//             }}
-//         />
-//     </Tabs.Navigator>
-// )
-
-// const Stack = createStackNavigator();
-// const MainNavigator = () => (
-//     <Stack.Navigator>
-//         <Stack.Screen
-//             name="Home"
-//             component={TabNavigator}
-//         />
-//         <Stack.Screen
-//             name="DeckInfo"
-//             component={DeckInfo}
-//         />
-//         <Stack.Screen
-//             name="AddCard"
-//             component={AddCard}
-//         />
-//         <Stack.Screen
-//             name="Quiz"
-//             component={Quiz}
-//         />
-//     </Stack.Navigator>
-// )
 
 const MainNavigator = createStackNavigator(
     {
@@ -67,25 +23,41 @@ const MainNavigator = createStackNavigator(
         DeckInfo: {
             screen: DeckInfo,
             navigationOptions: {
-                title: 'Deck Details'
+                title: 'Deck Details',
+                headerTintColor: dirtyGold,
+                headerStyle: {
+                    backgroundColor: doveGrey
+                }
             }
         },
         AddCard: {
             screen: AddCard,
             navigationOptions: {
-                title: 'Create a card'
+                title: 'Create a card',
+                headerTintColor: dirtyGold,
+                headerStyle: {
+                    backgroundColor: doveGrey
+                }
             }
         },
         Quiz: {
             screen: Quiz,
             navigationOptions: {
-                title: 'Quiz'
+                title: 'Quiz',
+                headerTintColor: dirtyGold,
+                headerStyle: {
+                    backgroundColor: doveGrey
+                }
             }
         },
         CreateDeck: {
             screen: CreateDeck,
             navigationOptions: {
-                title: 'Create a deck'
+                title: 'Create a deck',
+                headerTintColor: dirtyGold,
+                headerStyle: {
+                    backgroundColor: doveGrey
+                }
             }
         }
     }

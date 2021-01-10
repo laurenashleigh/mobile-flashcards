@@ -125,6 +125,10 @@ const styles = StyleSheet.create({
     }
 })
 class Quiz extends React.Component {
+    componentDidMount() {
+        clearLocalNotification()
+        setLocalNotification()
+    }
     state = {
         cardNumber: 0,
         score: 0,
@@ -142,7 +146,6 @@ class Quiz extends React.Component {
             score: prevState.score + 1,
             cardNumber: prevState.cardNumber +1,
         }))
-        // clearLocalNotification().then(setLocalNotification)
     }
 
     handleIncorrectClick = () => {

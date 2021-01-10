@@ -53,34 +53,3 @@ const Deck = (props) => {
     )
 }
 export default connect(null, {removeDeck})(Deck)
-
-// class Deck extends React.Component {
-
-//     handleRemoveDeck = (did) => {
-//         const { dispatch, navigation } = this.props
-//         dispatch(removeDeck(did))
-//         removeDeck(did)
-//         navigation.goBack()
-//     }
-//     render() {
-//         const { deckName } = this.props
-//         return (
-//             <View style={styles.deck}>
-//                 <TouchableOpacity style={styles.delete} onPress={() => this.handleRemoveDeck(deckName.title)}>
-//                     <Entypo name="cross" size={28} color={codGrey} />
-//                 </TouchableOpacity>
-//                 <Text style={styles.deckTitle}>{deckName.title}</Text>
-//                 <Text style={styles.deckSubtitle}>Cards: {deckName.cards.length}</Text>
-//             </View>
-//         )
-//     }
-// }
-
-// const mapStateToProps = (state, { deck }) => {
-//     const deckName = deck.title.split(' ').join('')
-//     return {
-//         deckName
-//     }
-// }
-
-// export default connect(mapStateToProps)(Deck)

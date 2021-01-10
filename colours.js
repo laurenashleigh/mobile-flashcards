@@ -1,6 +1,5 @@
 
 export const white = '#fff'
-// export const lightBlue = '#add8e6'
 export const doveGrey = '#d3d3d3'
 export const codGrey = '#191919'
 export const gold = '#fed701'

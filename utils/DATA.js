@@ -29,9 +29,5 @@ export const decks = {
                 answer: 'Tehran'
             }
         ]
-    },
-    Blah: {
-        title: 'Blah',
-        Cards: []
     }
 }
