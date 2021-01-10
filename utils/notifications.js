@@ -5,7 +5,7 @@ import * as Permissions from 'expo-permissions';
 const NOTIFICATION_KEY = 'MobileFlashcards: notifications'
 
 export function clearLocalNotification() {
-    return AsyncStorage.removeItem(NOTIFICATION_KEY)
+    AsyncStorage.removeItem(NOTIFICATION_KEY)
     .then(Notifications.cancelAllScheduledNotificationsAsync)
 }
 
@@ -29,7 +29,7 @@ export function setLocalNotification() {
                 if (status === 'granted') {
                     Notifications.cancelAllScheduledNotificationsAsync()
                     let tomorrow =  new Date()
-                    tomorrow.setDate(tomorrow.getDate + 1)
+                    tomorrow.setDate(tomorrow.getDate() + 1)
                     tomorrow.setHours(19)
                     tomorrow.setMinutes(0)
 

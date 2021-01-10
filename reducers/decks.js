@@ -5,7 +5,7 @@ import {
     ADD_CARD
 } from '../actions/decks';
 
-//Adds new deck to state
+
 const decks = (state = {}, action) => {
     switch (action.type) {
       case RECIEVE_DECKS:

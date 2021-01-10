@@ -4,7 +4,6 @@ import { codGrey, dirtyGold, eggBlue, blueLagoon, white } from '../colours';
 import {connect} from 'react-redux';
 import Deck from './Deck';
 import { removeDeck } from '../actions/decks'
-import { deleteDeck } from '../utils/api'
 
 const styles = StyleSheet.create({
     deck: {
@@ -102,7 +101,6 @@ class DeckInfo extends React.Component {
 function mapStateToProps(state, {navigation}) {
     const title = navigation.state.params.deck.title
     const deckName = title.split(' ').join('')
-    const deck = state[deckName]
     return {
         deck,
         title
